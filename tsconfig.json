@@ -1,0 +1,12 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES2018",
+        "module": "CommonJS",
+        "rootDir": ".",
+        "strict": true,
+        "moduleResolution": "Node",
+        "esModuleInterop": true
+    }
+}
