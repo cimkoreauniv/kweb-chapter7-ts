@@ -12,7 +12,8 @@ const pool = mysql.createPool({
     database: DB_NAME,
 });
 
-const runQuery = async <T extends mysql.RowDataPacket[] | mysql.ResultSetHeader>(pstmt: string, data?: any[]) => {
+const runQuery = async <T extends mysql.RowDataPacket[] | mysql.ResultSetHeader>
+    (pstmt: string, data?: any[]) => {
     const conn = await pool.getConnection();
     try {
         const sql = conn.format(pstmt, data);

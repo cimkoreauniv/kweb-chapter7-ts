@@ -30,7 +30,7 @@ export const signIn: RequestHandler = async (req, res, next) => {
         const { username, password } = req.body;
         if (!(username && password))
             throw new Error("BAD_REQUEST");
-
+        
         const user = await UserDAO.getByUsername(username);
         if (!user) throw new Error('UNAUTHORIZED');
 
