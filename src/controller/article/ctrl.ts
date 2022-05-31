@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 import { ArticleDAO } from '../../DAO';
 
 export const readArticle: RequestHandler = async (req, res, next) => {

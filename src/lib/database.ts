@@ -1,4 +1,4 @@
-import mysql from 'mysql2/promise';
+import * as mysql from 'mysql2/promise';
 
 const { DB_HOST, DB_PORT_STR, DB_USER, DB_PASS, DB_NAME } = process.env;
 

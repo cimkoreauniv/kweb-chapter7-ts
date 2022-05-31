@@ -1,6 +1,6 @@
 import { UserDAO } from "../../DAO";
 import { generatePassword, verifyPassword } from "../../lib/authentication";
-import express, { RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 
 declare module 'express-session'
 {

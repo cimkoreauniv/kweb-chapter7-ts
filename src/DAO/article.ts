@@ -1,5 +1,7 @@
 import runQuery from "../lib/database";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Article } from "./datatypes";
+
 
 const formatDate = (date: Date): string => {
     const yr = date.getFullYear();
@@ -11,10 +13,10 @@ const formatDate = (date: Date): string => {
     return `${yr}. ${mon}. ${dt} ${hrs}:${mins}:${secs}`;
 }
 
-const replaceDate = (article: RowDataPacket): RowDataPacket => {
+const replaceDate = (article: Article): Article => {
     if (article) {
-        article.createdAt = formatDate(article.createdAt);
-        article.lastUpdated = formatDate(article.lastUpdated);
+        article.createdAt = formatDate(article.createdAtDate);
+        article.lastUpdated = formatDate(article.lastUpdatedDate);
     }
     return article;
 }
@@ -25,7 +27,7 @@ export const getList = async (start: number, count: number) => {
         + ' FROM articles INNER JOIN users ON articles.author=users.id'
         + ' WHERE articles.is_active=1 AND articles.is_deleted=0'
         + ' ORDER BY articles.id DESC LIMIT ?, ?';
-    const ret = await runQuery<RowDataPacket[]>(sql, [start, count]);
+    const ret = await runQuery<Article[]>(sql, [start, count]);
     ret.forEach(replaceDate);
     return ret;
 };
@@ -41,13 +43,13 @@ export const getById = async (id: number) => {
         + ' last_updated AS lastUpdated, author, users.display_name AS displayName'
         + ' FROM articles INNER JOIN users ON articles.author=users.id'
         + ' WHERE articles.id=? AND articles.is_active=1 AND articles.is_deleted=0';
-    return replaceDate((await runQuery<RowDataPacket[]>(sql, [id]))[0]);
+    return replaceDate((await runQuery<Article[]>(sql, [id]))[0]);
 };
 
 export const getByIdAndAuthor = async (id: number, author: any) => {
     const sql = 'SELECT title, content, author, created_at AS createdAt, last_updated AS lastUpdated'
         + ' FROM articles WHERE id=? AND author=? AND is_active=1 AND is_deleted=0';
-    return replaceDate((await runQuery<RowDataPacket[]>(sql, [id, author.id]))[0]);
+    return replaceDate((await runQuery<Article[]>(sql, [id, author.id]))[0]);
 };
 
 export const create = async (title: string, content: string, author: any) => {

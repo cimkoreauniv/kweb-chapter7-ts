@@ -1,6 +1,6 @@
-import express from 'express';
-import session from 'express-session';
-import morgan from 'morgan';
+import * as express from 'express';
+import * as session from 'express-session';
+import * as morgan from 'morgan';
 
 import controller from './controller';
 import { errorHandler } from './lib/error-handler';

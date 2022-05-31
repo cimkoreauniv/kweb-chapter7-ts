@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
-
-const { ArticleDAO } = require('../DAO');
+import { ArticleDAO } from "../DAO";
 
 export const indexPage: RequestHandler = async (req, res, next) => {
     try {
